@@ -20,6 +20,14 @@ public class Maze{
     */
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
+        File text = new File(filename);
+        Scanner scanner = new Scanner(text);
+
+        while(scanner.hasNextLine())
+        {
+          String line = scanner.nextLine();
+          System.out.println(line);
+        }
     }
 
     private void wait(int millis){
