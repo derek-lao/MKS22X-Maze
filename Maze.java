@@ -20,6 +20,7 @@ public class Maze{
     */
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
+`	animate = false;
         File text = new File(filename);
         Scanner scanner = new Scanner(text);
 
@@ -30,6 +31,8 @@ public class Maze{
         }
     }
 
+    private boolean walkedButFailed;
+    private boolean walkedButSucceeded;
     private void wait(int millis){
          try {
              Thread.sleep(millis);
