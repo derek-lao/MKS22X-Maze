@@ -70,6 +70,7 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
+	return -1; //so it compiles
     }
 
     /*
