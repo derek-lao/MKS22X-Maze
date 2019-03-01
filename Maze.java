@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
 
-    private char[][]maze;
+    private char[][] maze;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -20,7 +20,7 @@ public class Maze{
     */
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
-`	animate = false;
+        animate = false;
         File text = new File(filename);
         Scanner scanner = new Scanner(text);
 
@@ -31,8 +31,49 @@ public class Maze{
         }
     }
 
-    private boolean walkedButFailed;
-    private boolean walkedButSucceeded;
+    // private int solveCount = 0;
+    private int[] rowIncrements = {0,-1,0,1};
+    private int[] colIncrements = {1,0,-1,0};
+    private boolean isWall(int r,int c){
+      if(maze[r][c] == '#')
+      {
+        return true;
+      }
+      return false;
+    }
+
+    private boolean virginLands(int r,int c){
+      if(maze[r][c] == ' ' || maze[r][c] == 'S')
+      {
+        return true;
+      }
+      return false;
+    }
+
+    private boolean walkedButFailed(int r,int c){
+      if(maze[r][c] == 'X')
+      {
+        return true;
+      }
+      return false;
+    }
+
+    private boolean walkedButSucceeded(int r, int c){
+      if(maze[r][c] == '@')
+      {
+        return true;
+      }
+      return false;
+    }
+
+    private boolean holyGrail(int r,int c){
+      if(maze[r][c] == 'E')
+      {
+        return true;
+      }
+      return false;
+    }
+
     private void wait(int millis){
          try {
              Thread.sleep(millis);
@@ -73,8 +114,9 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
-	return -1; //so it compiles
+	           return -1; //so it compiles
     }
+
 
     /*
       Recursive Solve function:
@@ -90,16 +132,18 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col){ //you can add more parameters since this is private
+      //automatic animation! You are welcome.
+      if(animate){
+          clearTerminal();
+          System.out.println(this);
+          wait(20);
+      }
 
-        //automatic animation! You are welcome.
-        if(animate){
-            clearTerminal();
-            System.out.println(this);
-            wait(20);
-        }
-
-        //COMPLETE SOLVE
-        return -1; //so it compiles
+      //COMPLETE SOLVE
+      return -1; //so it compiles
     }
 
+    private boolean solveHelper(int count, int row, int col){
+
+    }
 }
