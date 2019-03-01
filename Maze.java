@@ -144,6 +144,21 @@ public class Maze{
     }
 
     private boolean solveHelper(int count, int row, int col){
-
+      // bug might arise from this first boolean!!!
+      if(walkedButSucceeded(row,col) || walkedButFailed(row,col))
+      {
+        return false;
+      }
+      if(virginLands(row,col))
+      {
+        for(int a = 0; a < rowIncrements.length; a ++)
+        {
+          for(int b = 0; b < colIncrements.length; b ++)
+          {
+            if(solveHelper(count + 1,row,col))
+            return true;
+          }
+        }
+      }
     }
 }
