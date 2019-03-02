@@ -19,60 +19,22 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
-        //COMPLETE CONSTRUCTOR
-        animate = false;
-        File text = new File(filename);
-        Scanner scanner = new Scanner(text);
+      //COMPLETE CONSTRUCTOR
+      animate = false;
+      File text = new File(filename);
+      Scanner scanner = new Scanner(text);
+      String overall = "";
 
-        while(scanner.hasNextLine())
-        {
-          String line = scanner.nextLine();
-          System.out.println(line);
-        }
+      while(scanner.hasNextLine())
+      {
+        String line = scanner.nextLine;
+        System.out.println(line);
+      }
     }
 
     // private int solveCount = 0;
     private int[] rowIncrements = {0,-1,0,1};
     private int[] colIncrements = {1,0,-1,0};
-    private boolean isWall(int r,int c){
-      if(maze[r][c] == '#')
-      {
-        return true;
-      }
-      return false;
-    }
-
-    private boolean virginLands(int r,int c){
-      if(maze[r][c] == ' ' || maze[r][c] == 'S')
-      {
-        return true;
-      }
-      return false;
-    }
-
-    private boolean walkedButFailed(int r,int c){
-      if(maze[r][c] == '.')
-      {
-        return true;
-      }
-      return false;
-    }
-
-    private boolean walkedButSucceeded(int r, int c){
-      if(maze[r][c] == '@')
-      {
-        return true;
-      }
-      return false;
-    }
-
-    private boolean holyGrail(int r,int c){
-      if(maze[r][c] == 'E')
-      {
-        return true;
-      }
-      return false;
-    }
 
     private void wait(int millis){
          try {
@@ -99,7 +61,16 @@ public class Maze{
      It should look like the text file with some characters replaced.
     */
     public String toString(){
-      return "WRITE THIS METHOD";
+      String answer = "";
+      for(int r = 0; r < maze.length; r ++)
+      {
+        for(int c = 0; c < maze[0].length; c ++)
+        {
+          answer += maze[r][c];
+        }
+        answer += "\n";
+      }
+      return answer;
     }
 
 
@@ -190,40 +161,40 @@ public class Maze{
       return -1; // so it compliles
     }
 
-    private boolean solveHelper(int count, int row, int col){
-      // bug might arise from this first boolean!!!
-      if(maze[row][col] == 'E')
-      {
-        return true;
-      }
-      else if(maze[row][col] == '@' || maze[row][col] == '.' || maze[row][col] == '#')
-      {
-        return false;
-      }
-      else if(maze[row][col] == 'S' || maze[row][col] == ' ')
-      {
-        maze[row][col] = '@';
-
-        // loop, should never exit if it finds a path.
-        for(int a = 0; a < rowIncrements.length; a ++)
-        {
-          for(int b = 0; b < colIncrements.length; b ++)
-          {
-            if(solveHelper(count + 1,row + a,col + b))
-            {
-              return true;
-            }
-          }
-        }
-        // if exited the loop, begin backtracking.
-        maze[row][col] = '.';
-        return false;
-      }
-      else
-      {
-        System.out.println("this means that the thing you encountered was super duper wack");
-        return false;
-      }
-    }
+    // private boolean solveHelper(int count, int row, int col){
+    //   // bug might arise from this first boolean!!!
+    //   if(maze[row][col] == 'E')
+    //   {
+    //     return true;
+    //   }
+    //   else if(maze[row][col] == '@' || maze[row][col] == '.' || maze[row][col] == '#')
+    //   {
+    //     return false;
+    //   }
+    //   else if(maze[row][col] == 'S' || maze[row][col] == ' ')
+    //   {
+    //     maze[row][col] = '@';
+    //
+    //     // loop, should never exit if it finds a path.
+    //     for(int a = 0; a < rowIncrements.length; a ++)
+    //     {
+    //       for(int b = 0; b < colIncrements.length; b ++)
+    //       {
+    //         if(solveHelper(count + 1,row + a,col + b))
+    //         {
+    //           return true;
+    //         }
+    //       }
+    //     }
+    //     // if exited the loop, begin backtracking.
+    //     maze[row][col] = '.';
+    //     return false;
+    //   }
+    //   else
+    //   {
+    //     System.out.println("this means that the thing you encountered was super duper wack");
+    //     return false;
+    //   }
+    // }
 
 }
