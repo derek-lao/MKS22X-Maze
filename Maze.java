@@ -51,7 +51,7 @@ public class Maze{
     }
 
     private boolean walkedButFailed(int r,int c){
-      if(maze[r][c] == 'X')
+      if(maze[r][c] == '.')
       {
         return true;
       }
@@ -99,7 +99,7 @@ public class Maze{
      It should look like the text file with some characters replaced.
     */
     public String toString(){
-            return "WRITE THIS METHOD";
+      return "WRITE THIS METHOD";
     }
 
 
@@ -108,13 +108,31 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
-            //find the location of the S.
-
-            //erase the S
-
-            //and start solving at the location of the s.
-            //return solve(???,???);
-	           return -1; //so it compiles
+      //find the location of the S.
+      int srow = -1;
+      int scol = -1;
+      for(int r = 0; r < maze.length; r ++)
+      {
+        for(int c = 0; c < maze[0].length; c ++)
+        {
+          if(maze[r][c] == 'S')
+          {
+            srow = r;
+            scol = c;
+            r = maze.length;
+            c = maze[0].length;
+          }
+        }
+      }
+      //erase the S
+      if(srow != -1 && scol != -1)
+      {
+        maze[srow][scol] = ' ';
+        //and start solving at the location of the s.
+        return solve(srow,scol);
+      }
+      System.out.println("No S was found");
+       return -1; //so it compiles
     }
 
 
@@ -140,25 +158,72 @@ public class Maze{
       }
 
       //COMPLETE SOLVE
-      return -1; //so it compiles
+      if(row != -1 && col != -1)
+      {
+        int count = 0;
+        if(maze[row][col] == 'E')
+        {
+          return count;
+        }
+        else if(maze[row][col] == ' ')
+        {
+          maze[row][col] = '@';
+          count ++;
+          // loop, should never exit if it finds a path.
+          for(int a = 0; a < rowIncrements.length; a ++)
+          {
+            for(int b = 0; b < colIncrements.length; b ++)
+            {
+              solve(row + a,col + b);
+            }
+          }
+          // if exited the loop, begin backtracking.
+          maze[row][col] = '.';
+          count --;
+        }
+        else
+        {
+          System.out.println("this means that the thing you encountered was super duper wack");
+          return -1;
+        }
+      }
+      return -1; // so it compliles
     }
 
     private boolean solveHelper(int count, int row, int col){
       // bug might arise from this first boolean!!!
-      if(walkedButSucceeded(row,col) || walkedButFailed(row,col))
+      if(maze[row][col] == 'E')
+      {
+        return true;
+      }
+      else if(maze[row][col] == '@' || maze[row][col] == '.' || maze[row][col] == '#')
       {
         return false;
       }
-      if(virginLands(row,col))
+      else if(maze[row][col] == 'S' || maze[row][col] == ' ')
       {
+        maze[row][col] = '@';
+
+        // loop, should never exit if it finds a path.
         for(int a = 0; a < rowIncrements.length; a ++)
         {
           for(int b = 0; b < colIncrements.length; b ++)
           {
-            if(solveHelper(count + 1,row,col))
-            return true;
+            if(solveHelper(count + 1,row + a,col + b))
+            {
+              return true;
+            }
           }
         }
+        // if exited the loop, begin backtracking.
+        maze[row][col] = '.';
+        return false;
+      }
+      else
+      {
+        System.out.println("this means that the thing you encountered was super duper wack");
+        return false;
       }
     }
+
 }
