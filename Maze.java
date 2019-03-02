@@ -24,10 +24,15 @@ public class Maze{
       File text = new File(filename);
       Scanner scanner = new Scanner(text);
       String overall = "";
-
+      int increment = 0;
       while(scanner.hasNextLine())
       {
-        String line = scanner.nextLine;
+        String line = scanner.nextLine();
+        for(int i = 0; i < line.length(); i ++)
+        {
+          maze[increment][i] = line.charAt(i);
+        }
+        increment ++;
         System.out.println(line);
       }
     }
