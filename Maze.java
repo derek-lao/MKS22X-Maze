@@ -161,21 +161,26 @@ public class Maze{
         {
           maze[row][col] = '@';
           count ++;
+          System.out.println("Successfully moved to " + row + "," + col);
+          System.out.println(this.toString());
           // loop, should never exit if it finds a path.
           for(int a = 0; a < rowIncrements.length; a ++)
           {
             for(int b = 0; b < colIncrements.length; b ++)
             {
-              solve(row + a,col + b);
+              solve(row + rowIncrements[a],col + colIncrements[b]);
             }
           }
           // if exited the loop, begin backtracking.
+          System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
           maze[row][col] = '.';
           count --;
+          System.out.println(this.toString());
         }
         else
         {
-          System.out.println("this means that the thing you encountered was super duper wack");
+          System.out.println("Failed to move to " + row + "," + col);
+          System.out.println(this.toString());
           return -1;
         }
       }
