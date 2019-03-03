@@ -24,16 +24,32 @@ public class Maze{
       File text = new File(filename);
       Scanner scanner = new Scanner(text);
       String overall = "";
+      int row = 0;
+      int col = 0;
       int increment = 0;
       while(scanner.hasNextLine())
       {
         String line = scanner.nextLine();
-        for(int i = 0; i < line.length(); i ++)
+        if(line.charAt(0) == '#' && line.charAt(line.length()-1) == '#')
         {
-          maze[increment][i] = line.charAt(i);
+          row ++;
+          col = line.length();
         }
-        increment ++;
-        System.out.println(line);
+      }
+      scanner = new Scanner(text);
+      maze = new char[row][col];
+      while(scanner.hasNextLine())
+      {
+        String line = scanner.nextLine();
+        if(line.charAt(0) == '#' && line.charAt(line.length()-1) == '#')
+        {
+          for(int i = 0; i < line.length(); i ++)
+          {
+            maze[increment][i] = line.charAt(i);
+          }
+          increment ++;
+          System.out.println(line);
+        }
       }
     }
 
