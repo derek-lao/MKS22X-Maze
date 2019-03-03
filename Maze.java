@@ -56,6 +56,7 @@ public class Maze{
     // private int solveCount = 0;
     private int[] rowIncrements = {0,-1,0,1};
     private int[] colIncrements = {1,0,-1,0};
+    private int count;
 
     private void wait(int millis){
          try {
@@ -103,6 +104,7 @@ public class Maze{
       //find the location of the S.
       int srow = -1;
       int scol = -1;
+      count = 0;
       for(int r = 0; r < maze.length; r ++)
       {
         for(int c = 0; c < maze[0].length; c ++)
@@ -152,9 +154,10 @@ public class Maze{
       //COMPLETE SOLVE
       if(row != -1 && col != -1)
       {
-        int count = 0;
+        System.out.println("The count is " + count);
         if(maze[row][col] == 'E')
         {
+          System.out.println("We're done! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
           return count;
         }
         else if(maze[row][col] == ' ')
@@ -164,12 +167,9 @@ public class Maze{
           System.out.println("Successfully moved to " + row + "," + col);
           System.out.println(this.toString());
           // loop, should never exit if it finds a path.
-          for(int a = 0; a < rowIncrements.length; a ++)
+          for(int i = 0; i < rowIncrements.length; i ++)
           {
-            for(int b = 0; b < colIncrements.length; b ++)
-            {
-              solve(row + rowIncrements[a],col + colIncrements[b]);
-            }
+            solve(row + rowIncrements[i],col + colIncrements[i]);
           }
           // if exited the loop, begin backtracking.
           System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
@@ -180,47 +180,52 @@ public class Maze{
         else
         {
           System.out.println("Failed to move to " + row + "," + col);
-          System.out.println(this.toString());
+          // System.out.println(this.toString());
           return -1;
         }
       }
       return -1; // so it compliles
     }
 
-    // private boolean solveHelper(int count, int row, int col){
-    //   // bug might arise from this first boolean!!!
-    //   if(maze[row][col] == 'E')
-    //   {
-    //     return true;
-    //   }
-    //   else if(maze[row][col] == '@' || maze[row][col] == '.' || maze[row][col] == '#')
-    //   {
-    //     return false;
-    //   }
-    //   else if(maze[row][col] == 'S' || maze[row][col] == ' ')
-    //   {
-    //     maze[row][col] = '@';
-    //
-    //     // loop, should never exit if it finds a path.
-    //     for(int a = 0; a < rowIncrements.length; a ++)
-    //     {
-    //       for(int b = 0; b < colIncrements.length; b ++)
-    //       {
-    //         if(solveHelper(count + 1,row + a,col + b))
-    //         {
-    //           return true;
-    //         }
-    //       }
-    //     }
-    //     // if exited the loop, begin backtracking.
-    //     maze[row][col] = '.';
-    //     return false;
-    //   }
-    //   else
-    //   {
-    //     System.out.println("this means that the thing you encountered was super duper wack");
-    //     return false;
-    //   }
-    // }
+    private boolean solveHelper(int countIncrement, int row, int col){
+      if(row != -1 && col != -1)
+      {
+        System.out.println("The count is " + count);
+        if(maze[row][col] == 'E')
+        {
+          System.out.println("We're done! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+          count = countIncrement;
+          return true;
+        }
+        else if(maze[row][col] == ' ')
+        {
+          maze[row][col] = '@';
+          System.out.println("Successfully moved to " + row + "," + col);
+          System.out.println(this.toString());
+          // loop, should never exit if it finds a path.
+          for(int i = 0; i < rowIncrements.length; i ++)
+          {
+            if(solveHelper(countIncrement + 1,row + rowIncrements[i],col + colIncrements[i]))
+            {
+              return true;
+            }
+          }
+          // if exited the loop, begin backtracking.
+          System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
+          maze[row][col] = '.';
+          count --;
+          System.out.println(this.toString());
+          return false;
+        }
+        else
+        {
+          System.out.println("Failed to move to " + row + "," + col);
+          // System.out.println(this.toString());
+          return false;
+        }
+      }
+      System.out.println("If you got here, it means the maze is not existable");
+      return false; // so it compliles
+    }
 
 }
