@@ -123,7 +123,8 @@ public class Maze{
       {
         maze[srow][scol] = ' ';
         //and start solving at the location of the s.
-        return solve(srow,scol);
+        solveHelper(count,srow,scol);
+        return count;
       }
       System.out.println("No S was found");
        return -1; //so it compiles
@@ -190,18 +191,19 @@ public class Maze{
     private boolean solveHelper(int countIncrement, int row, int col){
       if(row != -1 && col != -1)
       {
-        System.out.println("The count is " + count);
+        // System.out.println("The count is " + countIncrement);
         if(maze[row][col] == 'E')
         {
-          System.out.println("We're done! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+          // System.out.println("We're done! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+          // + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
           count = countIncrement;
           return true;
         }
         else if(maze[row][col] == ' ')
         {
           maze[row][col] = '@';
-          System.out.println("Successfully moved to " + row + "," + col);
-          System.out.println(this.toString());
+          // System.out.println("Successfully moved to " + row + "," + col);
+          // System.out.println(this.toString());
           // loop, should never exit if it finds a path.
           for(int i = 0; i < rowIncrements.length; i ++)
           {
@@ -211,20 +213,19 @@ public class Maze{
             }
           }
           // if exited the loop, begin backtracking.
-          System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
+          // System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
           maze[row][col] = '.';
-          count --;
-          System.out.println(this.toString());
+          // System.out.println(this.toString());
           return false;
         }
         else
         {
-          System.out.println("Failed to move to " + row + "," + col);
+          // System.out.println("Failed to move to " + row + "," + col);
           // System.out.println(this.toString());
           return false;
         }
       }
-      System.out.println("If you got here, it means the maze is not existable");
+      // System.out.println("If you got here, it means the maze is not existable");
       return false; // so it compliles
     }
 
