@@ -5,7 +5,7 @@ public class DerekDriver{
     try
     {
       Maze stuff = new Maze("Maze1.txt");
-      stuff.solve();
+      System.out.println("The number of steps to take is " + stuff.solve());
       System.out.println(stuff.toString());
     }
     catch(FileNotFoundException e)

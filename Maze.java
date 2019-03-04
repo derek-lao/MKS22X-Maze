@@ -48,7 +48,7 @@ public class Maze{
             maze[increment][i] = line.charAt(i);
           }
           increment ++;
-          System.out.println(line);
+          System.out.println(line); // this line is commentable, not really needed for purpose of actual maze.
         }
       }
     }
@@ -59,20 +59,20 @@ public class Maze{
     private int count;
 
     private void wait(int millis){
-         try {
-             Thread.sleep(millis);
-         }
-         catch (InterruptedException e) {
-         }
-     }
+      try {
+          Thread.sleep(millis);
+      }
+      catch (InterruptedException e) {
+      }
+    }
 
     public void setAnimate(boolean b){
-        animate = b;
+      animate = b;
     }
 
     public void clearTerminal(){
-        //erase terminal, go to top left of screen.
-        System.out.println("\033[2J\033[1;1H");
+      //erase terminal, go to top left of screen.
+      System.out.println("\033[2J\033[1;1H");
     }
 
 
