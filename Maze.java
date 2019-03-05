@@ -124,7 +124,14 @@ public class Maze{
         maze[srow][scol] = ' ';
         //and start solving at the location of the s.
         solveHelper(count,srow,scol);
-        return count;
+        if(count != 0)
+        {
+          return count;
+        }
+        else
+        {
+          return -1;
+        }
       }
       System.out.println("No S was found");
        return -1; //so it compiles
