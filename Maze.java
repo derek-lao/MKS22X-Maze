@@ -151,49 +151,53 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    // private int solve(int row, int col){ //you can add more parameters since this is private
-    //   //automatic animation! You are welcome.
-    //   if(animate){
-    //       clearTerminal();
-    //       System.out.println(this);
-    //       wait(20);
-    //   }
-    //
-    //   //COMPLETE SOLVE
-    //   if(row != -1 && col != -1)
-    //   {
-    //     System.out.println("The count is " + count);
-    //     if(maze[row][col] == 'E')
-    //     {
-    //       System.out.println("We're done! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-    //       return count;
-    //     }
-    //     else if(maze[row][col] == ' ')
-    //     {
-    //       maze[row][col] = '@';
-    //       count ++;
-    //       System.out.println("Successfully moved to " + row + "," + col);
-    //       System.out.println(this.toString());
-    //       // loop, should never exit if it finds a path.
-    //       for(int i = 0; i < rowIncrements.length; i ++)
-    //       {
-    //         solve(row + rowIncrements[i],col + colIncrements[i]);
-    //       }
-    //       // if exited the loop, begin backtracking.
-    //       System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
-    //       maze[row][col] = '.';
-    //       count --;
-    //       System.out.println(this.toString());
-    //     }
-    //     else
-    //     {
-    //       System.out.println("Failed to move to " + row + "," + col);
-    //       // System.out.println(this.toString());
-    //       return -1;
-    //     }
-    //   }
-    //   return -1; // so it compliles
-    // }
+    private int solve(int row, int col,int count){ //you can add more parameters since this is private
+      //automatic animation! You are welcome.
+      if(animate){
+          clearTerminal();
+          System.out.println(this);
+          wait(20);
+      }
+
+      //COMPLETE SOLVE
+      if(row != -1 && col != -1)
+      {
+        System.out.println("The count is " + count);
+        if(maze[row][col] == 'E')
+        {
+          System.out.println("We're done! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+          return 0;
+        }
+        else if(maze[row][col] == ' ' || maze[row][col] == 'S')
+        {
+          maze[row][col] = '@';
+          count ++;
+          System.out.println("Successfully moved to " + row + "," + col);
+          System.out.println(this.toString());
+          // loop, should never exit if it finds a path.
+          for(int i = 0; i < rowIncrements.length; i ++)
+          {
+            int holder = solve(row + rowIncrements[i],col + colIncrements[i],count);
+            if(holder != -1)
+            {
+              return holder + 1;
+            }
+          }
+          // if exited the loop, begin backtracking.
+          System.out.println("Encountered a wall, or a path that has already been walked. Backtracking.");
+          maze[row][col] = '.';
+          count --;
+          System.out.println(this.toString());
+        }
+        else
+        {
+          System.out.println("Failed to move to " + row + "," + col);
+          // System.out.println(this.toString());
+          return -1;
+        }
+      }
+      return -1; // so it compliles
+    }
 
     private boolean solveHelper(int countIncrement, int row, int col){
       if(row != -1 && col != -1)
